@@ -1,0 +1,139 @@
+/* Estilos CSS personalizados para el diseño */
+:root {
+    --sidebar-width: 280px;
+}
+
+/* Ocultar el sidebar en pantallas grandes por defecto */
+@media (min-width: 992px) {
+    #sidebarMenu {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        transform: none;
+        visibility: visible !important;
+        border-right: 1px solid rgba(0, 0, 0, 0.175);
+        transition: margin-left 0.3s ease;
+        margin-left: 0;
+    }
+
+    .sidebar-closed #sidebarMenu {
+        margin-left: calc(-1 * var(--sidebar-width));
+    }
+
+    .sidebar-closed main {
+        margin-left: 0 !important;
+    }
+}
+
+.sidebar-custom-color {
+    background-color: #12343b;
+}
+
+body {
+    background-color: #f8f9fa;
+    /* Un color de fondo suave para el contenido */
+}
+
+main {
+    transition: margin-left 0.3s ease;
+}
+
+/* Estilos de la barra de navegación */
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Estilos del Sidebar */
+.sidebar-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Contenedor del menú con scroll */
+.offcanvas-body.scrollable-menu {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-link {
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff !important;
+}
+
+/* Estilos para los títulos de sección en el sidebar */
+.sidebar-section-title {
+    padding: 1rem 1rem 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ccc;
+}
+
+/* Estilos para los componentes del dashboard */
+.card.shadow-sm {
+    position: relative;
+    border: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card.shadow-sm:hover {
+    transform: translateY(-5px);
+}
+
+.card-body .bi {
+    font-size: 3rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    opacity: 0.6;
+}
+
+.card-text.fs-2 {
+    font-size: 2.5rem !important;
+}
+
+/* Estilos para la tabla */
+.table-responsive {
+    margin-top: 1rem;
+}
+
+.table thead th {
+    background-color: #e9ecef;
+}
+
+/* Estilos para los badges de estado */
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529;
+}
+
+.badge.bg-success {
+    background-color: #198754 !important;
+}
+
+.badge.bg-info {
+    background-color: #0dcaf0 !important;
+}
+
+/* Gráfico */
+canvas {
+    max-width: 100%;
+}
+
+.custom-btn-toggle {
+    background-color: #2c7f90;
+    /* Cambia este valor por el color que quieras */
+    border-color: #212c37;
+    color: #fff;
+    /* O el color de texto que necesites */
+}
+
+/* Opcional: Estilo al pasar el cursor */
+.custom-btn-toggle:hover {
+    background-color: #2a7dc6ff;
+    /* Un tono un poco más oscuro */
+    border-color: #1a232b;
+}
