@@ -26,7 +26,7 @@ use App\Models\usuariolog;
 class LoginController extends Controller
 {
     /* ============================================================
-       🔐 FORMULARIO DE LOGIN
+       FORMULARIO DE LOGIN
     ============================================================ */
 
     /**
@@ -43,7 +43,7 @@ class LoginController extends Controller
     }
 
     /* ============================================================
-       ✅ PROCESAR LOGIN
+       ✅PROCESAR LOGIN
     ============================================================ */
 
     /**
@@ -61,7 +61,7 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        // 🧾 Obtener credenciales del formulario
+        //Obtener credenciales del formulario
         $credentials = $request->only('user_name', 'user_pass');
 
         // 🔍 Buscar usuario por nombre de usuario
@@ -94,14 +94,14 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        // 🔒 Cerrar sesión del guard personalizado
+        // Cerrar sesión del guard personalizado
         Auth::guard('usuariolog')->logout();
 
         // 🧹 Limpiar la sesión actual
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // 🔁 Redirigir al formulario de inicio
+        // Redirigir al formulario de inicio
         return redirect('/login');
     }
 }

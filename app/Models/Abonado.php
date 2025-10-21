@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// ⚠️ IMPORTANTE: El nombre de la clase debe ser 'Abonado' (mayúscula)
+// IMPORTANTE: El nombre de la clase debe ser 'Abonado' (mayúscula)
 class Abonado extends Model
 {
     use HasFactory;

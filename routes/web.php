@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| 📂 Archivo de rutas web del sistema
+| Archivo de rutas web del sistema
 |--------------------------------------------------------------------------
 | Este archivo define todas las rutas del sistema, incluyendo:
 | - Rutas públicas (login, reclamos externos)
@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 /*  ============================================================
-    🌐 RUTAS PÚBLICAS (Login / Logout / Reclamos Externos)
+    RUTAS PÚBLICAS (Login / Logout / Reclamos Externos)
     ============================================================ */
 
 Route::get('/', function () {
@@ -114,7 +114,7 @@ Route::middleware('auth:usuariolog')->group(function () {
         Route::get('/reclamos', [ReclamoController::class, 'index'])->name('reclamos.leer');
         Route::get('/reclamos/crear', [ReclamoController::class, 'create'])->name('reclamos.crear');
         Route::post('/reclamos', [ReclamoController::class, 'store'])->name('reclamos.store');
-        // 🛠️ Editar / Actualizar / Eliminar
+        // Editar / Actualizar / Eliminar
         Route::get('/reclamos/{id}/editar', [ReclamoController::class, 'edit'])->name('reclamos.edit');
         Route::put('/reclamos/{id}', [ReclamoController::class, 'update'])->name('reclamos.update');
         Route::delete('/reclamos/{id}', [ReclamoController::class, 'destroy'])->name('reclamos.destroy');
@@ -128,7 +128,7 @@ Route::middleware('auth:usuariolog')->group(function () {
 
 
 
-        // 🔎 AJAX: listar barrios por sector
+        // AJAX: listar barrios por sector
         Route::get('/barrios/por-sector', [BarrioController::class, 'porSector'])
             ->name('barrios.porSector');
 
@@ -197,6 +197,43 @@ Route::middleware('auth:usuariolog')->group(function () {
   
 
     }); // Fin del grupo de administrador
+
+
+    Route::middleware(['auth', 'check.user.type:1,2,3,4'])->group(function () {
+    
+        // Ruta para MOSTRAR LA LISTA (GET /noticias)
+        // Llama al método 'index' del 'NoticiaController'
+        Route::get('/noticias', [App\Http\Controllers\NoticiaController::class, 'index'])
+            ->name('noticias.leer');
+
+        // Ruta para MOSTRAR EL FORMULARIO DE CREAR (GET /noticias/crear)
+        // Llama al método 'create'
+        Route::get('/noticias/crear', [App\Http\Controllers\NoticiaController::class, 'create'])
+            ->name('noticias.crear');
+
+        // Ruta para GUARDAR LA NUEVA NOTICIA (POST /noticias)
+        // Llama al método 'store'
+        Route::post('/noticias', [App\Http\Controllers\NoticiaController::class, 'store'])
+            ->name('noticias.store');
+            
+        // 1. Ruta para MOSTRAR el formulario de edición
+         // {id} es un parámetro que se pasará al método 'edit'
+        Route::get('/noticias/{id}/editar', [App\Http\Controllers\NoticiaController::class, 'edit'])
+            ->name('noticias.edit');
+
+        // 2. Ruta para PROCESAR la actualización (PUT)
+         Route::put('/noticias/{id}', [App\Http\Controllers\NoticiaController::class, 'update'])
+            ->name('noticias.update');
+
+        // 3. Ruta para ELIMINAR el registro (DELETE)
+        Route::delete('/noticias/{id}', [App\Http\Controllers\NoticiaController::class, 'destroy'])
+             ->name('noticias.destroy');
+
+        // Aquí irían las rutas para editar, actualizar y eliminar
+        // Ej: Route::get('/noticias/{id}/editar', ...)
+        // Ej: Route::put('/noticias/{id}', ...)
+        // Ej: Route::delete('/noticias/{id}', ...)
+    });
 
 
     /*
