@@ -39,7 +39,8 @@ class usuariologController extends Controller
         $query = usuariolog::query();
 
         if ($request->has('buscar') && !empty($request->buscar)) {
-            $termino = '%' . $request->buscar . '%';
+            // Normalizar término de búsqueda a minúsculas para user_name
+            $termino = '%' . strtolower(trim($request->buscar)) . '%';
             $query->where('user_name', 'like', $termino)
                   ->orWhere('user_tipo', 'like', $termino);
         }
@@ -96,13 +97,20 @@ class usuariologController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'user_name' => 'required|string|max:50',
+            'user_name' => [
+                'required',
+                'string',
+                'max:50',
+                'regex:/^[a-z0-9_\-\.]+$/', // Solo minúsculas, números y caracteres permitidos
+            ],
             'user_tipo' => 'required|string|max:2',
             'user_pass' => 'nullable|string|max:256',
+        ], [
+            'user_name.regex' => 'El nombre de usuario solo puede contener letras minúsculas, números, guiones, guiones bajos y puntos.',
         ]);
 
         $usuario = usuariolog::findOrFail($id);
-        $usuario->user_name = $request->user_name;
+        $usuario->user_name = $request->user_name; // El mutador del modelo lo convertirá a minúsculas
         $usuario->user_tipo = $request->user_tipo;
 
         // 🔐 Encriptar contraseña si se envía un nuevo valor

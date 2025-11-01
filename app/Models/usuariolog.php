@@ -10,6 +10,7 @@ class usuariolog extends Authenticatable
     use HasFactory;
 
     protected $table = 'usuariolog';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'user_name',
@@ -25,6 +26,20 @@ class usuariolog extends Authenticatable
         return $this -> user_pass;
     }
 
+    /**
+     * Mutador para estandarizar el nombre de usuario a minúsculas.
+     *
+     * Convierte automáticamente el user_name a minúsculas antes de guardarlo
+     * en la base de datos, garantizando consistencia y evitando duplicados
+     * por diferencias de mayúsculas/minúsculas.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setUserNameAttribute($value)
+    {
+        $this->attributes['user_name'] = strtolower(trim($value));
+    }
 
     //para que no se manejen los datos tipo fecha o hora
     public $timestamps = false;

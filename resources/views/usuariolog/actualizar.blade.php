@@ -20,8 +20,11 @@
 
         <div class="mb-3">
             <label class="form-label">Nombre de Usuario</label>
-            <input type="text" name="user_name" class="form-control" 
+            <input type="text" name="user_name" class="form-control"
                    value="{{ old('user_name', $usuario->user_name) }}" required>
+            <small class="form-text text-muted">
+                Solo se permiten letras minúsculas, números, guiones (-), guiones bajos (_) y puntos (.)
+            </small>
         </div>
 
         <div class="mb-3">

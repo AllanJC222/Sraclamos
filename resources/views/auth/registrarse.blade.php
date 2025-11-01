@@ -38,6 +38,10 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <small class="form-text text-muted">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Solo se permiten letras minúsculas, números, guiones (-), guiones bajos (_) y puntos (.)
+                            </small>
                         </div>
 
                         <!-- Campo: user_pass (Contraseña) -->

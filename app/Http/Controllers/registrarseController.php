@@ -52,9 +52,15 @@ class registrarseController extends Controller
     {
         // 🧾 Validación de campos
         $validator = Validator::make($request->all(), [
-            'user_name' => 'required|unique:usuariolog,user_name',
+            'user_name' => [
+                'required',
+                'unique:usuariolog,user_name',
+                'regex:/^[a-z0-9_\-\.]+$/', // Solo minúsculas, números y caracteres permitidos
+            ],
             'user_pass' => 'required|min:3',
             'user_tipo' => 'required'
+        ], [
+            'user_name.regex' => 'El nombre de usuario solo puede contener letras minúsculas, números, guiones, guiones bajos y puntos.',
         ]);
 
         // ❌ Si hay errores, regresar con los mensajes de validación
@@ -64,7 +70,7 @@ class registrarseController extends Controller
 
         // ✅ Crear nuevo usuario
         $user = new usuariolog();
-        $user->user_name = $request->user_name;
+        $user->user_name = $request->user_name; // El mutador del modelo lo convertirá a minúsculas
         $user->user_pass = Hash::make($request->user_pass); // Encriptar contraseña
         $user->user_tipo = $request->user_tipo;
         $user->save();

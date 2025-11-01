@@ -64,8 +64,8 @@ class LoginController extends Controller
         //Obtener credenciales del formulario
         $credentials = $request->only('user_name', 'user_pass');
 
-        // 🔍 Buscar usuario por nombre de usuario
-        $user = usuariolog::where('user_name', $credentials['user_name'])->first();
+        // 🔍 Buscar usuario por nombre de usuario (normalizado a minúsculas)
+        $user = usuariolog::where('user_name', strtolower(trim($credentials['user_name'])))->first();
 
         // 🔐 Verificar existencia y coincidencia de contraseña
         if ($user && Hash::check($credentials['user_pass'], $user->user_pass)) {
